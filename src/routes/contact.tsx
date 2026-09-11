@@ -21,6 +21,8 @@ export const Route = createFileRoute("/contact")({
         property: "og:description",
         content: "Start a project with the Tevexxo studio — we reply within one working day.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ContactPage,

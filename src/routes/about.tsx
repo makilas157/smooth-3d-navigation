@@ -19,6 +19,8 @@ export const Route = createFileRoute("/about")({
         property: "og:description",
         content: "Build. Learn. Scale. The story behind the Tevexxo studio.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AboutPage,

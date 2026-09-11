@@ -18,6 +18,8 @@ export const Route = createFileRoute("/products/")({
         property: "og:description",
         content: "Tools shaped by real work — the Tevexxo product suite.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ProductsPage,

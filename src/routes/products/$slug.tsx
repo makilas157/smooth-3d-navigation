@@ -18,6 +18,8 @@ export const Route = createFileRoute("/products/$slug")({
           { name: "description", content: loaderData.description },
           { property: "og:title", content: `${loaderData.title} — Tevexxo` },
           { property: "og:description", content: loaderData.description },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
         ]
       : [],
   }),

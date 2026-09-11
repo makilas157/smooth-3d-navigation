@@ -18,6 +18,8 @@ export const Route = createFileRoute("/blogs/")({
         property: "og:description",
         content: "Field notes on engineering, design systems, applied AI and performance.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: BlogsPage,
