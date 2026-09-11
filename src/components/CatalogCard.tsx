@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
+import { useRef } from "react";
 import type { CatalogItem } from "@/data/site";
 
 export function CatalogCard({
@@ -11,9 +12,36 @@ export function CatalogCard({
   to: "/services/$slug" | "/products/$slug";
   index?: number;
 }) {
+  const card = useRef<HTMLAnchorElement>(null);
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLAnchorElement>) => {
+    if (event.pointerType === "touch" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    event.currentTarget.style.setProperty("--tilt-x", `${(0.5 - y) * 7}deg`);
+    event.currentTarget.style.setProperty("--tilt-y", `${(x - 0.5) * 8}deg`);
+    event.currentTarget.style.setProperty("--light-x", `${x * 100}%`);
+    event.currentTarget.style.setProperty("--light-y", `${y * 100}%`);
+  };
+
+  const resetTilt = () => {
+    card.current?.style.setProperty("--tilt-x", "0deg");
+    card.current?.style.setProperty("--tilt-y", "0deg");
+  };
+
   return (
-    <div className="float-soft h-full" style={{ animationDelay: `${(index % 4) * 0.45}s` }}>
-    <Link to={to} params={{ slug: item.slug }} className="catalog-card group glow-hover block h-full">
+    <div className="card-perspective float-soft h-full" style={{ animationDelay: `${(index % 4) * 0.45}s` }}>
+    <Link
+      ref={card}
+      to={to}
+      params={{ slug: item.slug }}
+      className="catalog-card depth-tilt group glow-hover block h-full"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetTilt}
+      onBlur={resetTilt}
+    >
+      <span aria-hidden="true" className="card-specular" />
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={item.image}

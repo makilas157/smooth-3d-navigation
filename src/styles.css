@@ -157,6 +157,26 @@
   box-shadow: var(--shadow-glow);
 }
 
+@utility logo-depth {
+  transform: perspective(12rem) rotateX(12deg) rotateY(-18deg);
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0.3rem;
+    border: 1px solid oklch(1 0 0 / 0.5);
+    border-radius: calc(var(--radius) - 0.2rem);
+    transform: translateZ(0.45rem);
+  }
+
+  a:hover & {
+    transform: perspective(12rem) rotateX(-8deg) rotateY(24deg) translateY(-1px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+
 @utility section-tag {
   display: inline-flex;
   align-items: center;
@@ -229,6 +249,47 @@
   &:hover img {
     transform: scale(1.06);
   }
+}
+
+@utility card-perspective {
+  perspective: 70rem;
+}
+
+@utility depth-tilt {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --light-x: 50%;
+  --light-y: 50%;
+  isolation: isolate;
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  &:hover {
+    transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-6px);
+  }
+
+  & > div {
+    transform: translateZ(0.8rem);
+  }
+}
+
+@utility card-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--light-x) var(--light-y), oklch(1 0 0 / 0.18), transparent 34%);
+  transition: opacity 0.3s ease;
+
+  .depth-tilt:hover & {
+    opacity: 1;
+  }
+}
+
+@utility hero-scene {
+  filter: drop-shadow(0 2rem 4rem oklch(0.68 0.19 40 / 0.2));
 }
 
 @utility btn-solid {
@@ -433,5 +494,12 @@
   .light-orb,
   .heading-glow {
     animation: none !important;
+  }
+
+  .depth-tilt,
+  .depth-tilt:hover,
+  .logo-depth,
+  a:hover .logo-depth {
+    transform: none !important;
   }
 }

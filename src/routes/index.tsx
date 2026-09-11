@@ -24,6 +24,8 @@ export const Route = createFileRoute("/")({
         content:
           "Engineering that moves business forward. Custom software, product design and in-house tools from the Tevexxo studio.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,

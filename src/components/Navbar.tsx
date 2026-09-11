@@ -12,7 +12,7 @@ export function Navbar() {
       <CursorGrid />
       <nav className="container-x relative flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="logo-mark" />
+          <span className="logo-mark logo-depth" />
           <span className="font-display text-lg font-semibold tracking-tight">tevexxo</span>
         </Link>
 
